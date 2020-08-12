@@ -1,0 +1,12 @@
+{
+  "name": "noc-bar",
+  "version": "1.0.0",
+  "description": "not only convenient, but also reasonable",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "keywords": [],
+  "author": "Herr_Zatacke",
+  "license": "MIT"
+}
