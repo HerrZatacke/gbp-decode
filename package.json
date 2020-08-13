@@ -1,8 +1,8 @@
 {
-  "name": "noc-bar",
+  "name": "gbp-decode",
   "version": "1.0.0",
   "description": "not only convenient, but also reasonable",
-  "main": "src/index.js",
+  "main": "src/main.js",
   "scripts": {
     "start": "node src/index.js"
   },
