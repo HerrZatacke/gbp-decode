@@ -11,4 +11,7 @@ loadBytes('comp.txt')
   .then(transformToClassic)
   .then((output) => {
     console.log(output);
+  })
+  .catch((error) => {
+    console.error(error);
   });
