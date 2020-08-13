@@ -1,12 +1,18 @@
 {
   "name": "gbp-decode",
   "version": "1.0.0",
-  "description": "not only convenient, but also reasonable",
+  "description": "A set of functions to decode gameboy printer code",
   "main": "src/main.js",
   "scripts": {
     "start": "node src/index.js"
   },
-  "keywords": [],
-  "author": "Herr_Zatacke",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/HerrZatacke/gbp-decode.git"
+  },
+  "keywords": ["gameboy", "printer", "decode", "parse"],
+  "author": {
+    "name": "Herr_Zatacke"
+  },
   "license": "MIT"
 }
