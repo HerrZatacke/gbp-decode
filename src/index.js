@@ -4,7 +4,7 @@ const getImageDataStream = require('./getImageDataStream');
 const decompressDataStream = require('./decompressDataStream');
 const transformToClassic = require('./transformToClassic');
 
-loadBytes('comp.txt')
+loadBytes('test.txt')
   .then(parsePackets)
   .then(getImageDataStream)
   .then(decompressDataStream)
