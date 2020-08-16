@@ -5,7 +5,7 @@ const decompressDataStream = require('./decompressDataStream');
 const decodePrintCommands = require('./decodePrintCommands');
 const transformToClassic = require('./transformToClassic');
 
-loadBytes('test.txt')
+loadBytes('alice.txt')
   .then(parsePackets)
   .then(getImageDataStream)
   .then(decompressDataStream)

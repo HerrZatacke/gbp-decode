@@ -2,11 +2,17 @@ const { COMMAND_DATA, COMMAND_PRINT } = require('./constants');
 
 const transformToClassic = (packets) => {
 
-  let transformed = [];
+  let image = {
+    transformed: [],
+    palette: null,
+  };
+
   let currentLine = '';
   const images = [];
 
-  packets.forEach((packet) => {
+  packets.forEach((packet, i) => {
+
+    console.log('pck', i);
 
     switch (packet.command) {
       case COMMAND_DATA:
@@ -15,7 +21,7 @@ const transformToClassic = (packets) => {
             .padStart(2, '0')}`;
 
           if (i % 16 === 15) {
-            transformed.push(currentLine.trim());
+            image.transformed.push(currentLine.trim());
             currentLine = '';
           }
         }
@@ -23,13 +29,14 @@ const transformToClassic = (packets) => {
 
       case COMMAND_PRINT:
 
-        if (packet.data.marginLower !== 0) {
-          images.push({
-            transformed: transformed.join('\n'),
-            palette: packet.data.paletteData,
-          });
+        image.palette = packet.data.paletteData || image.palette;
 
-          transformed = [];
+        if (packet.data.marginLower !== 0) {
+          images.push(image);
+
+          image = {
+            transformed: [],
+          };
           currentLine = '';
         }
 
@@ -40,6 +47,10 @@ const transformToClassic = (packets) => {
         break;
     }
   });
+
+  if (image.transformed.length) {
+    images.push(image);
+  }
 
   return images;
 };
