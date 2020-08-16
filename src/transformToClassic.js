@@ -10,10 +10,7 @@ const transformToClassic = (packets) => {
   let currentLine = '';
   const images = [];
 
-  packets.forEach((packet, i) => {
-
-    console.log('pck', i);
-
+  packets.forEach((packet) => {
     switch (packet.command) {
       case COMMAND_DATA:
         for (let i = 0; i < packet.data.length; i += 1) {
