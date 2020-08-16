@@ -22,13 +22,17 @@ const transformToClassic = (packets) => {
         break;
 
       case COMMAND_PRINT:
-        images.push({
-          meta: packet.data,
-          transformed: transformed.join('\n').length,
-        });
 
-        transformed = [];
-        currentLine = '';
+        if (packet.data.marginLower !== 0) {
+          images.push({
+            transformed: transformed.join('\n'),
+            palette: packet.data.paletteData,
+          });
+
+          transformed = [];
+          currentLine = '';
+        }
+
 
         break;
 

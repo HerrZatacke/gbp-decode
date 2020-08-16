@@ -1,6 +1,6 @@
 {
   "name": "gbp-decode",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A set of functions to decode gameboy printer code",
   "main": "src/main.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "type": "git",
     "url": "https://github.com/HerrZatacke/gbp-decode.git"
   },
-  "keywords": ["gameboy", "printer", "decode", "parse"],
+  "keywords": ["gameboy", "gameboyprinter", "gameboycamera", "pocketprinter", "pocketcamera", "decode", "parse"],
   "author": {
     "name": "Herr_Zatacke"
   },
