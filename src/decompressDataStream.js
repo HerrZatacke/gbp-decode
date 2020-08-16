@@ -1,15 +1,18 @@
 const unpack = require('./unpack');
+const { COMMAND_DATA } = require("./constants");
 
-const decompressDataStream = (dataPackets) => {
-  return dataPackets
-    .map(({ hasCompression, data }) => {
-      if (hasCompression) {
-        return unpack(data);
-      } else {
-        return data;
+const decompressDataStream = (packets) => {
+  return packets
+    .map((packet) => {
+      if (packet.command === COMMAND_DATA) {
+        return {
+          ... packet,
+          data: packet.hasCompression ? unpack(packet.data) : packet.data
+        };
       }
-    })
-    .flat();
+
+      return packet;
+    });
 }
 
 module.exports = decompressDataStream;
