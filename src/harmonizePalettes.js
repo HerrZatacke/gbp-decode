@@ -49,8 +49,6 @@ const harmonizePalettes = (packets) => {
             let unharmonizedPacket = unharmonizedPackets.shift();
             const data = [];
 
-            console.log(packet.data.paletteData);
-
             for (let i = 0; i < unharmonizedPacket.data.length; i += 2) {
               data.push(
                 ...harmonizePalette(
