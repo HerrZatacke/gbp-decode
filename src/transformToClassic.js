@@ -7,19 +7,17 @@ const transformToClassic = (packets) => {
     palette: null,
   };
 
-  let currentLine = '';
+  let currentLine = [];
   const images = [];
 
   packets.forEach((packet) => {
     switch (packet.command) {
       case COMMAND_DATA:
         for (let i = 0; i < packet.data.length; i += 1) {
-          currentLine += ` ${packet.data[i].toString(16)
-            .padStart(2, '0')}`;
-
+          currentLine.push(packet.data[i].toString(16).padStart(2, '0'));
           if (i % 16 === 15) {
-            image.transformed.push(currentLine.trim());
-            currentLine = '';
+            image.transformed.push(currentLine.join(' '));
+            currentLine = [];
           }
         }
         break;
@@ -34,7 +32,7 @@ const transformToClassic = (packets) => {
           image = {
             transformed: [],
           };
-          currentLine = '';
+          currentLine = [];
         }
 
 
