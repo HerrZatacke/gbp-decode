@@ -6,18 +6,18 @@ Install this module in your existing js application with `npm install --save gbp
   
 ## Overwiew
 This package exports these functions which are designed to be used in a promise chain:
-* [`toByteArray`](#toByteArray)
-* [`parsePackets`](#parsePackets)
-* [`getImageDataStream`](#getImageDataStream)
-* [`decompressDataStream`](#decompressDataStream)
-* [`decodePrintCommands`](#decodePrintCommands)
-* [`harmonizePalettes`](#harmonizePalettes)
-* [`transformToClassic`](#transformToClassic)
+* [`toByteArray`](#tobytearray)
+* [`parsePackets`](#parsepackets)
+* [`getImageDataStream`](#getimagedatastream)
+* [`decompressDataStream`](#decompressdatastream)
+* [`decodePrintCommands`](#decodeprintcommands)
+* [`harmonizePalettes`](#harmonizepalettes)
+* [`transformToClassic`](#transformtoclassic)
 
 It also exports the helpers
 * [`unpack`](#unpack)
-* [`parsePaletteByte`](#parsePaletteByte)
-* [`harmonizePalette`](#harmonizePalette)
+* [`parsePaletteByte`](#parsepalettebyte)
+* [`harmonizePalette`](#harmonizepalette)
 
 An example of how to read a file and transform it can be found here [`src/index.js`](src/index.js)
 
@@ -30,7 +30,7 @@ It returns an array of bytes (is js Number) which should be looking like this:
 > Note the first two entries are `136` and `51` which are the two starting indicators of a printer package (`0x88` and `0x33`)  
 
 ### parsePackets
-[`parsePackets`](src/parsePackets.js) accepts the result of [`toByteArray`](#toByteArray).  
+[`parsePackets`](src/parsePackets.js) accepts the result of [`toByteArray`](#tobytearray).  
 It returns an array of actual data packets which can be separately parsed.    
 Each packet is shaped like this:  
 ```
@@ -46,18 +46,18 @@ Each packet is shaped like this:
 > The part reading the file (using nodjs's `fs` object) is not being exported in the node module, as this could collide with usage in webpack based projects  
  
 ### getImageDataStream
-[`getImageDataStream`](src/getImageDataStream.js) accepts the result of [`parsePackets`](#parsePackets)  
+[`getImageDataStream`](src/getImageDataStream.js) accepts the result of [`parsePackets`](#parsepackets)  
 It returns an array of packets which are _print_ `0x2` or _data_ `0x4` packets. Other packets (_init_ `0x1` and _status_ `0xf`) are removed.  
 
 ### decompressDataStream
-[`decompressDataStream`](src/decompressDataStream.js) accepts the result of [`getImageDataStream`](#getImageDataStream)  
+[`decompressDataStream`](src/decompressDataStream.js) accepts the result of [`getImageDataStream`](#getimagedatastream)  
 In all _data_ `0x4` packets it checks for the `hasCompression` flag and if present replaces the compressed content of `data` with the value returned by [`unpack`](#unpack).  
 It returns an array of packets in which compressed packets are now uncompressed.  
 
 ### decodePrintCommands
-[`decodePrintCommands`](src/decodePrintCommands.js) accepts the result of [`decompressDataStream`](#decompressDataStream)  
+[`decodePrintCommands`](src/decodePrintCommands.js) accepts the result of [`decompressDataStream`](#decompressdatastream)  
 In all _print_ `0x2` packets the `data` property is transformed to hold the parsed information of the print command.  
-The `palette` byte is passed to [`parsePaletteByte`](#parsePaletteByte) to get the parsed palette info.  
+The `palette` byte is passed to [`parsePaletteByte`](#parsepalettebyte) to get the parsed palette info.  
 ``` javascript
 {
   "margins": 19, // original value of command (upper and lower nibble)
@@ -70,12 +70,12 @@ The `palette` byte is passed to [`parsePaletteByte`](#parsePaletteByte) to get t
 It returns an array of packets in which the _print_ packets hold more information  
 
 ### harmonizePalettes
-[`harmonizePalettes`](src/harmonizePalettes.js) accepts the result of [`decodePrintCommands`](#decodePrintCommands)  
-Applies palette harmonization to all packets by calling [`harmonizePalette`](#harmonizePalette) on each _data_ packet with the `palette` value of the next following _print_ packet    
+[`harmonizePalettes`](src/harmonizePalettes.js) accepts the result of [`decodePrintCommands`](#decodeprintcommands)  
+Applies palette harmonization to all packets by calling [`harmonizePalette`](#harmonizepalette) on each _data_ packet with the `palette` value of the next following _print_ packet    
 It returns an array in which all image data follows the 'default' palette.  
 
 ### transformToClassic
-[`transformToClassic`](src/transformToClassic.js) accepts the result of [`harmonizePalettes`](#harmonizePalettes)  
+[`transformToClassic`](src/transformToClassic.js) accepts the result of [`harmonizePalettes`](#harmonizepalettes)  
 It returns an array of array representing an image where each line can be handled as a default gameboy tile: 
 ```
 [
