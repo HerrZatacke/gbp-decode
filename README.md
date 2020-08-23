@@ -12,12 +12,14 @@ This package exports these functions which are designed to be used in a promise 
 * [`decompressDataStream`](#decompressDataStream)
 * [`decodePrintCommands`](#decodePrintCommands)
 * [`harmonizePalettes`](#harmonizePalettes)
-* [`parsePaletteByte`](#parsePaletteByte)
 * [`transformToClassic`](#transformToClassic)
-It also exports the helper
-* [`unpack`](#unpack)
 
-An example of how to read a file and transform it can be found here [`src/index.js`](src/index.js)  
+It also exports the helpers
+* [`unpack`](#unpack)
+* [`parsePaletteByte`](#parsePaletteByte)
+* [`harmonizePalette`](#harmonizePalette)
+
+An example of how to read a file and transform it can be found here [`src/index.js`](src/index.js)
 
 ### toByteArray
 [`toByteArray`](src/toByteArray.js) takes a string read from a file (or provided by some other ways of input) and strips all comments (lines starting with `//``).  
