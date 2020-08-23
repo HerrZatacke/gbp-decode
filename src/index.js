@@ -27,8 +27,7 @@ fs.readFile(filePath, { encoding: 'utf8' }, (error, fileContents) => {
     .then(transformToClassic)
     .then((images) => {
       images.forEach((image, index) => {
-        console.log(image);
-        // image.unshift('!{"command":"INIT"}');
+        image.unshift('!{"command":"INIT"}');
         fs.writeFileSync(path.join(process.cwd(), `out_${index}.txt`), image.join('\n'), {encoding: 'utf8'});
       });
     })
