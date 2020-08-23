@@ -26,7 +26,7 @@ An example of how to read a file and transform it can be found here [`src/index.
 > Note: To get from the 'readable' filedata to an actual bytestream check [`src/loadBytes.js`](src/loadBytes.js).  
 > The part reading the file (using nodjs's `fs` object) is not being exported in the node module, as this could collide with usage in webpack based projects  
 
-It returns an array of bytes (is js Number) which should be looking like this:  
+It returns an array of bytes ([here: Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)) which should be looking like this:  
 ```
 [136, 51, 1, 0, 0, 0, 1, 0, 129, 0, 136, 51, 4, 0, ...]
 ```
