@@ -27,7 +27,7 @@ const transformToClassic = (packets) => {
         image.palette = packet.data.paletteData || image.palette;
 
         if (packet.data.marginLower !== 0) {
-          images.push(image);
+          images.push(image.transformed);
 
           image = {
             transformed: [],
@@ -44,7 +44,7 @@ const transformToClassic = (packets) => {
   });
 
   if (image.transformed.length) {
-    images.push(image);
+    images.push(image.transformed);
   }
 
   return images;

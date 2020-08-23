@@ -25,10 +25,11 @@ fs.readFile(filePath, { encoding: 'utf8' }, (error, fileContents) => {
     .then(decodePrintCommands)
     .then(harmonizePalettes)
     .then(transformToClassic)
-    .then((files) => {
-      files.forEach((file, index) => {
-        file.transformed.unshift('!{"command":"INIT"}');
-        fs.writeFileSync(path.join(process.cwd(), `out_${index}.txt`), file.transformed.join('\n'), {encoding: 'utf8'});
+    .then((images) => {
+      images.forEach((image, index) => {
+        console.log(image);
+        // image.unshift('!{"command":"INIT"}');
+        fs.writeFileSync(path.join(process.cwd(), `out_${index}.txt`), image.join('\n'), {encoding: 'utf8'});
       });
     })
     .catch((error) => {
