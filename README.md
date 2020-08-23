@@ -93,7 +93,7 @@ It returns an array of array representing an image where each line can be handle
 [`unpack`](src/unpack.js) decompresses the simple RLE of a compressed data packet as [documented here](https://shonumi.github.io/articles/art2.html) 
 
 ### parsePaletteByte
-[`parsePaletteByte`](src/parsePaletteByte.js) 
+[`parsePaletteByte`](src/parsePaletteByte.js) splits the one palette byte into 4 2-bit values representing the 4 available grey scales.  
 
 ### harmonizePalette
 [`harmonizePalette`](src/harmonizePalette.js) returnes image data of a packet so that the 'default' palette is used.  
