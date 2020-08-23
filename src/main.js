@@ -3,8 +3,11 @@ const getImageDataStream = require('./getImageDataStream');
 const decompressDataStream = require('./decompressDataStream');
 const decodePrintCommands = require('./decodePrintCommands');
 const harmonizePalettes = require('./harmonizePalettes');
-const parsePaletteByte = require('./parsePaletteByte');
 const transformToClassic = require('./transformToClassic');
+
+const unpack = require('./unpack');
+const parsePaletteByte = require('./parsePaletteByte');
+const harmonizePalette = require('./harmonizePalette');
 
 module.exports = {
   parsePackets,
@@ -12,6 +15,9 @@ module.exports = {
   decompressDataStream,
   decodePrintCommands,
   harmonizePalettes,
-  parsePaletteByte,
   transformToClassic,
+
+  unpack,
+  parsePaletteByte,
+  harmonizePalette,
 };
