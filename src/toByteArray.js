@@ -3,6 +3,7 @@ const toByteArray = (fileContents) => {
   return Promise.resolve(
     fileContents
       .split('\n')
+      .filter((line) => !line.startsWith('//'))
       .map(line => line.trim())
       .map(line => line
         .split(' ')
