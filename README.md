@@ -23,6 +23,9 @@ An example of how to read a file and transform it can be found here [`src/index.
 
 ### toByteArray
 [`toByteArray`](src/toByteArray.js) takes a string read from a file (or provided by some other ways of input) and strips all comments (lines starting with `//``).  
+> Note: To get from the 'readable' filedata to an actual bytestream check [`src/loadBytes.js`](src/loadBytes.js).  
+> The part reading the file (using nodjs's `fs` object) is not being exported in the node module, as this could collide with usage in webpack based projects  
+
 It returns an array of bytes (is js Number) which should be looking like this:  
 ```
 [136, 51, 1, 0, 0, 0, 1, 0, 129, 0, 136, 51, 4, 0, ...]
@@ -42,8 +45,6 @@ Each packet is shaped like this:
   checksum: 1
 },
 ```
-> Note: To get from the 'readable' filedata to an actual bytestream check [`src/loadBytes.js`](src/loadBytes.js).  
-> The part reading the file (using nodjs's `fs` object) is not being exported in the node module, as this could collide with usage in webpack based projects  
  
 ### getImageDataStream
 [`getImageDataStream`](src/getImageDataStream.js) accepts the result of [`parsePackets`](#parsepackets)  
