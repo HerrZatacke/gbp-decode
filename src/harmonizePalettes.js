@@ -2,7 +2,7 @@ const { COMMAND_PRINT, COMMAND_DATA } = require('./constants');
 const harmonizePalette = require('./harmonizePalette');
 
 const harmonizePalettes = (packets) => {
-  const unharmonizedPackets = [];
+  let unharmonizedPackets = [];
 
   return packets
     .map((packet) => {
@@ -12,6 +12,11 @@ const harmonizePalettes = (packets) => {
           break;
 
         case COMMAND_PRINT:
+          if (packet.data.palette === 0) {
+            unharmonizedPackets = [];
+            break;
+          }
+
           while (unharmonizedPackets.length) {
             let unharmonizedPacket = unharmonizedPackets.shift();
             const data = [];

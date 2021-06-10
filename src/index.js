@@ -9,7 +9,7 @@ const decodePrintCommands = require('./decodePrintCommands');
 const harmonizePalettes = require('./harmonizePalettes');
 const transformToClassic = require('./transformToClassic');
 
-const fileName = 'all.txt';
+const fileName = 'white.txt';
 const filePath = path.join(process.cwd(), fileName)
 
 fs.readFile(filePath, { encoding: 'utf8' }, (error, fileContents) => {
