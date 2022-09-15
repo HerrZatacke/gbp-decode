@@ -1,4 +1,5 @@
 const parsePackets = require('./parsePackets');
+const parseReducedPackets = require('./parseReducedPackets');
 const getImageDataStream = require('./getImageDataStream');
 const decompressDataStream = require('./decompressDataStream');
 const decodePrintCommands = require('./decodePrintCommands');
@@ -11,6 +12,7 @@ const harmonizePalette = require('./harmonizePalette');
 
 module.exports = {
   parsePackets,
+  parseReducedPackets,
   getImageDataStream,
   decompressDataStream,
   decodePrintCommands,
