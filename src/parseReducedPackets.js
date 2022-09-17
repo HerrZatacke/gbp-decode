@@ -6,6 +6,7 @@ const {
   COMMAND_INIT,
   COMMAND_PRINT,
   COMMAND_DATA,
+  COMMAND_TRANSFER,
 } = require('./constants');
 
 const parseReducedPackets = (bytes) => {
@@ -36,7 +37,7 @@ const parseReducedPackets = (bytes) => {
 
   return new Promise((resolve) => {
 
-    bytes.forEach((byte) => {
+    bytes.forEach((byte, index) => {
       switch (state) {
 
         case STATE_AWAIT_COMMAND:
@@ -55,8 +56,12 @@ const parseReducedPackets = (bytes) => {
               state = STATE_AWAIT_PACKET_DATA_LENGTH;
               return;
 
+            case COMMAND_TRANSFER:
+              state = STATE_AWAIT_PACKET_DATA_LENGTH;
+              return;
+
             default:
-              throw new Error(`Unknown packet command: 0x${packet.command.toString(16)}`)
+              throw new Error(`Unknown packet command: 0x${packet.command.toString(16)} at index ${index}`);
           }
 
         case STATE_AWAIT_COMPRESSION_INFO:
@@ -72,6 +77,7 @@ const parseReducedPackets = (bytes) => {
 
           // eslint-disable-next-line no-bitwise
           packet.dataLength = packet.buffer[0] + (byte << 8);
+
           packet.buffer = [];
 
           if (packet.dataLength === 0) {
@@ -89,6 +95,19 @@ const parseReducedPackets = (bytes) => {
           if (packet.buffer.length === packet.dataLength) {
             packet.data = packet.buffer;
             state = STATE_AWAIT_COMMAND;
+
+            // There is no "PRINT" command after a "TRANSFER" command
+            // this will add a synthentic one
+            if (packet.command === 0x10) {
+              nextPacket();
+              packet = {
+                command: 2,
+                data: [1, 3, 228, 127],
+                hasCompression: null,
+                dataLength: 4,
+              };
+            }
+
             nextPacket();
           }
 
