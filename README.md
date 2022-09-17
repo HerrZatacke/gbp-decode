@@ -8,6 +8,7 @@ Install this module in your existing js application with `npm install --save gbp
 This package exports these functions which are designed to be used in a promise chain:
 * [`toByteArray`](#tobytearray)
 * [`parsePackets`](#parsepackets)
+* [`parseReducedPackets`](#parsereducedpackets)
 * [`getImageDataStream`](#getimagedatastream)
 * [`decompressDataStream`](#decompressdatastream)
 * [`decodePrintCommands`](#decodeprintcommands)
@@ -18,6 +19,8 @@ It also exports the helpers
 * [`unpack`](#unpack)
 * [`parsePaletteByte`](#parsepalettebyte)
 * [`harmonizePalette`](#harmonizepalette)
+* [`completeFrame`](#completeframe)
+* [`logPackets`](#logpackets)
 
 An example of how to read a file and transform it can be found here [`src/index.js`](src/index.js)
 
@@ -27,16 +30,16 @@ takes a string read from a file (or provided by some other ways of input) and st
 > The part reading the file (using nodjs's `fs` object) is not being exported in the node module, as this could collide with usage in webpack based projects  
 
 It returns an array of bytes ([here: Number](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number)) which should be looking like this:  
-```
+``` javascript
 [136, 51, 1, 0, 0, 0, 1, 0, 129, 0, 136, 51, 4, 0, ...]
 ```
-> Note the first two entries are `136` and `51` which are the two starting indicators of a printer package (`0x88` and `0x33`)  
+> Note the first two entries are `136` and `51` which are the two starting indicators of a printer packet (`0x88` and `0x33`)  
 
-### [`parsePackets`](src/parsePackets.js)
+### [`parsePackets`](src/parsePackets.js) / [`parseReducedPackets`](src/parseReducedPackets.js)
 accepts the result of [`toByteArray`](#tobytearray).  
 It returns an array of actual data packets which can be separately parsed.    
 Each packet is shaped like this:  
-```
+``` javascript
 {
   command: 1,
   data: [],
@@ -45,6 +48,7 @@ Each packet is shaped like this:
   checksum: 1
 },
 ```
+> `parseReducedPackets` accepts an incoming datastream which has been shortened by the [pico-gb-printer](https://github.com/untoxa/pico-gb-printer).
  
 ### [`getImageDataStream`](src/getImageDataStream.js)
 accepts the result of [`parsePackets`](#parsepackets)  
@@ -78,7 +82,7 @@ It returns an array in which all image data follows the 'default' palette.
 ### [`transformToClassic`](src/transformToClassic.js)
 accepts the result of [`harmonizePalettes`](#harmonizepalettes)  
 It returns an array of array representing an image where each line can be handled as a default gameboy tile: 
-```
+``` javascript
 [
   [
     'ff ff ff ff fe ff fe fe fe fe fe fe fe fe fe fe',
@@ -98,6 +102,13 @@ splits the one palette byte into 4 2-bit values representing the 4 available gre
 ### [`harmonizePalette`](src/harmonizePalette.js)
 returnes image data of a packet so that the 'default' palette is used.  
 Parsing/applying palette data is [documented here in § 5.7](https://www.mikrocontroller.net/attachment/34801/gb-printer.txt)
+
+### [`completeFrame`](src/completeFrame.js)
+adds two rows of tiles to the start and end of an (classic format) image if there are exactly 280 lines to begin with.
+This restores an image to common size which has been printed with the top and bootom part of the frame missing.
+
+### [`logPackets`](src/logPackets.js)
+logs all received packets
 
 ## Resources used:
 * https://shonumi.github.io/articles/art2.html  
