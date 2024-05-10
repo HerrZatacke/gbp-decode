@@ -1,6 +1,6 @@
 import parsePackets from "./parsePackets";
-// import parseReducedPackets from "./parseReducedPackets";
-// import inflateTransferPackages from "./inflateTransferPackages";
+import parseReducedPackets from "./parseReducedPackets";
+import inflateTransferPackages from "./inflateTransferPackages";
 import getImageDataStream from "./getImageDataStream";
 import decompressDataStream from "./decompressDataStream";
 import decodePrintCommands from "./decodePrintCommands";
@@ -9,13 +9,13 @@ import transformToClassic from "./transformToClassic";
 import unpack from "./unpack";
 import parsePaletteByte from "./parsePaletteByte";
 import harmonizePalette from "./harmonizePalette";
-// import completeFrame from "./completeFrame";
+import completeFrame from "./completeFrame";
 import logPackets from "./logPackets";
 
 export default {
   parsePackets,
-  // parseReducedPackets,
-  // inflateTransferPackages,
+  parseReducedPackets,
+  inflateTransferPackages,
   getImageDataStream,
   decompressDataStream,
   decodePrintCommands,
@@ -24,6 +24,8 @@ export default {
   unpack,
   parsePaletteByte,
   harmonizePalette,
-  // completeFrame,
+  completeFrame,
   logPackets,
 };
+
+export * from './Types';
