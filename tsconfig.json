@@ -1,0 +1,13 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "lib": ["es6", "dom", "dom.iterable"],
+    "module": "commonjs",
+    "outDir": "./dist",
+    "strict": true,
+    "esModuleInterop": true
+  },
+  "include": [
+    "./src/**/*"
+  ]
+}
