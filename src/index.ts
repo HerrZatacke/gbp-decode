@@ -1,5 +1,7 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { hash } from 'ohash';
+
 import toByteArray from "./toByteArray";
 import parsePackets from "./parsePackets";
 import getImageDataStream from "./getImageDataStream";
@@ -35,7 +37,7 @@ const run = async () => {
 
   rawPackets = await toByteArray(fileContents);
   parsedPackets = await parsePackets(rawPackets);
-  logPackets(parsedPackets);
+  fs.writeFile('debug_ts.txt', JSON.stringify(parsedPackets, null, 2), {encoding: 'utf8'});
   dataPackets = await getImageDataStream(parsedPackets);
   // console.log({ dataPackets: dataPackets.length });
   decompPackets = await decompressDataStream(dataPackets);
