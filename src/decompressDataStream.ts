@@ -9,7 +9,7 @@ const decompressDataStream = (packets: ParsedPacket[]): ParsedPacket[] => {
       if (packet.command === COMMAND_DATA) {
         return {
           ... packet,
-          hasCompression: false,
+          hasCompression: 0,
           data: packet.hasCompression ? unpack(packet.data) : packet.data
         } as ParsedPacket;
       }

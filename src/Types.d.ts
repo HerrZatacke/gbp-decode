@@ -15,7 +15,7 @@ export interface Packet {
   command: null | COMMAND,
   buffer: number[],
   data: number[],
-  hasCompression: null | boolean,
+  hasCompression: number,
   dataLength: number,
   checksum: number,
 }

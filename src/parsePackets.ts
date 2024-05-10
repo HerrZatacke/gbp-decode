@@ -5,7 +5,7 @@ const parsePackets = async (bytes: number[]): Promise<ParsedPacket[]> => {
   let packet: Packet = {...EMPTY_PACKET};
   const packets: ParsedPacket[] = [];
 
-  bytes.forEach((byte) => {
+  bytes.forEach((byte: number) => {
     switch (state) {
       case STATE.AWAIT_MAGIC_BYTES:
         if (packet.buffer.length === 0 && byte === 0x88) {
@@ -26,7 +26,7 @@ const parsePackets = async (bytes: number[]): Promise<ParsedPacket[]> => {
         return;
 
       case STATE.AWAIT_COMPRESSION_INFO:
-        packet.hasCompression = Boolean(byte);
+        packet.hasCompression = byte;
         state = STATE.AWAIT_PACKET_DATA_LENGTH;
         return;
 

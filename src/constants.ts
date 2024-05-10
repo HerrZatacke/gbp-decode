@@ -23,7 +23,7 @@ export const EMPTY_PACKET: Packet = {
   command: null,
   buffer: [],
   data: [],
-  hasCompression: null,
+  hasCompression: 0,
   dataLength: 0,
   checksum: 0,
 };
