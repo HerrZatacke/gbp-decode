@@ -37,15 +37,11 @@ const run = async () => {
 
   rawPackets = await toByteArray(fileContents);
   parsedPackets = await parsePackets(rawPackets);
-  fs.writeFile('debug_ts.txt', JSON.stringify(parsedPackets, null, 2), {encoding: 'utf8'});
   dataPackets = await getImageDataStream(parsedPackets);
-  // console.log({ dataPackets: dataPackets.length });
   decompPackets = await decompressDataStream(dataPackets);
-  // console.log({ decompPackets: decompPackets.length });
   printInfoPackets = await decodePrintCommands(decompPackets);
-  // console.log({ printInfoPackets: printInfoPackets.length });
+  fs.writeFile('debug_ts.txt', JSON.stringify(printInfoPackets, null, 2), {encoding: 'utf8'});
   harmonizedPackets = await harmonizePalettes(printInfoPackets);
-  // console.log({ harmonizedPackets: harmonizedPackets.length });
   classicPrintStreamImages = await transformToClassic(harmonizedPackets);
   // console.log({ classicPrintStreamImages: classicPrintStreamImages.length });
 
