@@ -1,12 +1,13 @@
 import {ParsedPacket} from "./Types";
+import {COMMAND} from "./constants";
 
-const { COMMAND_DATA } = require("./constants");
 import unpack from "./unpack";
+
 
 const decompressDataStream = (packets: ParsedPacket[]): ParsedPacket[] => {
   return packets
     .map((packet: ParsedPacket): ParsedPacket => {
-      if (packet.command === COMMAND_DATA) {
+      if (packet.command === COMMAND.DATA) {
         return {
           ... packet,
           hasCompression: 0,

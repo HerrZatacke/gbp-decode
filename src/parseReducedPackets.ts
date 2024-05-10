@@ -7,7 +7,7 @@
 //   COMMAND_PRINT,
 //   COMMAND_DATA,
 //   COMMAND_TRANSFER,
-// } = require('./constants');
+// } = rexxxquire('./constants');
 //
 // const parseReducedPackets = (bytes) => {
 //   let state = STATE_AWAIT_COMMAND;

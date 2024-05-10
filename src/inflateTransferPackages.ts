@@ -1,7 +1,7 @@
 // const {
 //   COMMAND_DATA,
 //   COMMAND_TRANSFER,
-// } = require('./constants');
+// } = rexxxquire('./constants');
 //
 // const twoTiles = (new Array(2 * 16)).fill(0);
 //

@@ -1,6 +1,4 @@
 import {DECOMP_MODE} from "./constants";
-import {ParsedPacket} from "./Types";
-
 
 const unpack = (data: number[]): number[] => {
   const dataOut: number[] = [];
