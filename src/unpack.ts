@@ -1,37 +1,37 @@
-const MODE_DETECT_LENGTH = 0;
-const MODE_COMPRESSED = 1;
-const MODE_UNCOMPRESSED = 2;
+import {DECOMP_MODE} from "./constants";
+import {ParsedPacket} from "./Types";
 
-const unpack = (data) => {
-  const dataOut = [];
 
-  let mode = MODE_DETECT_LENGTH;
+const unpack = (data: number[]): number[] => {
+  const dataOut: number[] = [];
+
+  let mode = DECOMP_MODE.DETECT_LENGTH;
   let length = 0;
 
   data.forEach((byte) => {
     switch (mode) {
-      case MODE_DETECT_LENGTH:
+      case DECOMP_MODE.DETECT_LENGTH:
         // noinspection JSBitwiseOperatorUsage
         if (byte & 0x80) {
-          mode = MODE_COMPRESSED;
+          mode = DECOMP_MODE.COMPRESSED;
           length = (byte & 0x7f) + 2;
         } else {
-          mode = MODE_UNCOMPRESSED;
+          mode = DECOMP_MODE.UNCOMPRESSED;
           length = byte + 1;
         }
         return;
 
-      case MODE_UNCOMPRESSED:
+      case DECOMP_MODE.UNCOMPRESSED:
         length -= 1;
         if (length === 0) {
-          mode = MODE_DETECT_LENGTH;
+          mode = DECOMP_MODE.DETECT_LENGTH;
         }
         dataOut.push(byte);
         return;
 
-      case MODE_COMPRESSED:
+      case DECOMP_MODE.COMPRESSED:
         dataOut.push(...[...Array(length)].map(() => byte))
-        mode = MODE_DETECT_LENGTH;
+        mode = DECOMP_MODE.DETECT_LENGTH;
         length = 0;
         return;
 
@@ -42,4 +42,4 @@ const unpack = (data) => {
 
 };
 
-module.exports = unpack;
+export default unpack;

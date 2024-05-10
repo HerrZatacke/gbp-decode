@@ -1,24 +1,28 @@
-const { COMMAND_PRINT } = require('./constants');
-const parsePaletteByte = require('./parsePaletteByte');
+import {COMMAND} from "./constants";
+import parsePaletteByte from "./parsePaletteByte";
+import {ParsedPacket, PrintData, PrintPacket} from "./Types";
 
-const decodePrintCommands = (packets) => {
+
+const decodePrintCommands = (packets: ParsedPacket[]): (PrintPacket | ParsedPacket)[] => {
   return packets
     .map((packet) => {
-      if (packet.command === COMMAND_PRINT) {
+      if (packet.command === COMMAND.PRINT) {
+        const printData: PrintData = {
+          margins: packet.data[1],
+          marginUpper: packet.data[1] >> 4,
+          marginLower: packet.data[1] & 0xf,
+          palette: packet.data[2],
+          paletteData: parsePaletteByte(packet.data[2]),
+        }
+
         return {
           ...packet,
-          data: {
-            margins: packet.data[1],
-            marginUpper: packet.data[1] >> 4,
-            marginLower: packet.data[1] & 0xf,
-            palette: packet.data[2],
-            paletteData: parsePaletteByte(packet.data[2]),
-          }
-        }
+          data: printData,
+        } as PrintPacket;
       }
 
       return packet;
     })
 };
 
-module.exports = decodePrintCommands;
+export default decodePrintCommands;

@@ -1,19 +1,21 @@
-const unpack = require('./unpack');
-const { COMMAND_DATA } = require("./constants");
+import {ParsedPacket} from "./Types";
 
-const decompressDataStream = (packets) => {
+const { COMMAND_DATA } = require("./constants");
+import unpack from "./unpack";
+
+const decompressDataStream = (packets: ParsedPacket[]): ParsedPacket[] => {
   return packets
-    .map((packet) => {
+    .map((packet: ParsedPacket): ParsedPacket => {
       if (packet.command === COMMAND_DATA) {
         return {
           ... packet,
-          hasCompression: 0,
+          hasCompression: false,
           data: packet.hasCompression ? unpack(packet.data) : packet.data
-        };
+        } as ParsedPacket;
       }
 
       return packet;
     });
 }
 
-module.exports = decompressDataStream;
+export default decompressDataStream;

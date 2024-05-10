@@ -1,32 +1,40 @@
-const { COMMAND_INIT, COMMAND_PRINT, COMMAND_DATA, COMMAND_STATUS } = require('./constants');
+import {COMMAND} from "./constants";
+import {ParsedPacket, PrintData, PrintPacket} from "./Types";
 
-const commandName = (c) => {
-  switch (c) {
-    case COMMAND_INIT:
+
+const commandName = (command: COMMAND | null): string => {
+  switch (command) {
+    case COMMAND.INIT:
       return 'INIT';
-    case COMMAND_PRINT:
+    case COMMAND.PRINT:
       return 'PRINT';
-    case COMMAND_DATA:
+    case COMMAND.DATA:
       return 'DATA';
-    case COMMAND_STATUS:
+    case COMMAND.STATUS:
       return 'STATUS';
     default:
       return '-';
   }
 }
 
-const logPackets = (packets) => {
-  console.log(packets);
+interface LogPacket {
+  command: string,
+  hasCompression: string,
+  dataLength: number,
+  data: string,
+}
+
+const logPackets = (packets: ParsedPacket[]) => {
   console.log(
-    packets.map(({ command, data, hasCompression, dataLength }) => ({
+    packets.map(({ command, data, hasCompression, dataLength }: ParsedPacket | PrintPacket): LogPacket => ({
       command: commandName(command),
       hasCompression: hasCompression ? 'yes' : 'no',
       dataLength,
-      data: data.margins ? `marginUpper: ${data.marginUpper} - marginLower: ${data.marginLower}` : '...',
+      data: (data as PrintData).margins ? `marginUpper: ${(data as PrintData).marginUpper} - marginLower: ${(data as PrintData).marginLower}` : (data as number[]).slice(0, 20).join(','),
     }))
   );
 
   return packets;
 }
 
-module.exports = logPackets;
+export default logPackets;

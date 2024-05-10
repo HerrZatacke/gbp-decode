@@ -4,7 +4,7 @@
   "description": "A set of functions to decode gameboy printer code",
   "main": "src/main.js",
   "scripts": {
-    "start": "node src/index.js",
+    "start": "tsc && node dist/index.js",
     "build-dist": "tsc"
   },
   "files": [

@@ -1,22 +1,21 @@
-const parsePackets = require('./parsePackets');
-const parseReducedPackets = require('./parseReducedPackets');
-const inflateTransferPackages = require('./inflateTransferPackages')
-const getImageDataStream = require('./getImageDataStream');
-const decompressDataStream = require('./decompressDataStream');
-const decodePrintCommands = require('./decodePrintCommands');
-const harmonizePalettes = require('./harmonizePalettes');
-const transformToClassic = require('./transformToClassic');
+import parsePackets from "./parsePackets";
+// import parseReducedPackets from "./parseReducedPackets";
+// import inflateTransferPackages from "./inflateTransferPackages";
+import getImageDataStream from "./getImageDataStream";
+import decompressDataStream from "./decompressDataStream";
+import decodePrintCommands from "./decodePrintCommands";
+import harmonizePalettes from "./harmonizePalettes";
+import transformToClassic from "./transformToClassic";
+import unpack from "./unpack";
+import parsePaletteByte from "./parsePaletteByte";
+import harmonizePalette from "./harmonizePalette";
+// import completeFrame from "./completeFrame";
+import logPackets from "./logPackets";
 
-const unpack = require('./unpack');
-const parsePaletteByte = require('./parsePaletteByte');
-const harmonizePalette = require('./harmonizePalette');
-const completeFrame = require('./completeFrame');
-const logPackets = require('./logPackets');
-
-module.exports = {
+export default {
   parsePackets,
-  parseReducedPackets,
-  inflateTransferPackages,
+  // parseReducedPackets,
+  // inflateTransferPackages,
   getImageDataStream,
   decompressDataStream,
   decodePrintCommands,
@@ -25,6 +24,6 @@ module.exports = {
   unpack,
   parsePaletteByte,
   harmonizePalette,
-  completeFrame,
+  // completeFrame,
   logPackets,
 };

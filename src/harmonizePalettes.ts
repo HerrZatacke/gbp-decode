@@ -1,18 +1,19 @@
-const { COMMAND_PRINT, COMMAND_DATA } = require('./constants');
-const harmonizePalette = require('./harmonizePalette');
+import {COMMAND} from "./constants";
+import harmonizePalette from "./harmonizePalette";
+import {ParsedPacket, PrintPacket} from "./Types";
 
-const harmonizePalettes = (packets) => {
-  let unharmonizedPackets = [];
+const harmonizePalettes = (packets: (PrintPacket | ParsedPacket)[]): (PrintPacket | ParsedPacket)[] => {
+  let unharmonizedPackets: ParsedPacket[] = [];
 
   return packets
-    .map((packet) => {
+    .map((packet: PrintPacket | ParsedPacket): PrintPacket|ParsedPacket => {
       switch (packet.command) {
-        case COMMAND_DATA:
-          unharmonizedPackets.push(packet);
+        case COMMAND.DATA:
+          unharmonizedPackets.push(packet as ParsedPacket);
           break;
 
-        case COMMAND_PRINT:
-          if (packet.data.palette === 0) {
+        case COMMAND.PRINT:
+          if ((packet as PrintPacket).data.palette === 0) {
             unharmonizedPackets = [];
             break;
           }
@@ -21,12 +22,16 @@ const harmonizePalettes = (packets) => {
             let unharmonizedPacket = unharmonizedPackets.shift();
             const data = [];
 
+            if (!unharmonizedPacket) {
+              throw Error('error harmonizing')
+            }
+
             for (let i = 0; i < unharmonizedPacket.data.length; i += 2) {
               data.push(
                 ...harmonizePalette(
                   unharmonizedPacket.data[i],
                   unharmonizedPacket.data[i + 1],
-                  packet.data.paletteData,
+                  (packet as PrintPacket).data.paletteData,
                 ),
               );
             }
@@ -41,4 +46,4 @@ const harmonizePalettes = (packets) => {
     })
 };
 
-module.exports = harmonizePalettes;
+export default harmonizePalettes;

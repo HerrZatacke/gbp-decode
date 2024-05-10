@@ -1,18 +1,18 @@
-const { COMMAND_DATA, COMMAND_PRINT } = require('./constants');
+import {ParsedPacket, PrintPacket, TransformedImage} from "./Types";
+import {COMMAND} from "./constants";
 
-const transformToClassic = (packets) => {
+const transformToClassic = (packets: (PrintPacket | ParsedPacket)[]): string[][] => {
 
-  let image = {
+  let image: TransformedImage = {
     transformed: [],
-    palette: null,
   };
 
-  let currentLine = [];
-  const images = [];
+  let currentLine: string[] = [];
+  const images: string[][] = [];
 
-  packets.forEach((packet) => {
+  packets.forEach((packet: (PrintPacket | ParsedPacket)) => {
     switch (packet.command) {
-      case COMMAND_DATA:
+      case COMMAND.DATA:
         for (let i = 0; i < packet.data.length; i += 1) {
           currentLine.push(packet.data[i].toString(16).padStart(2, '0'));
           if (i % 16 === 15) {
@@ -22,11 +22,11 @@ const transformToClassic = (packets) => {
         }
         break;
 
-      case COMMAND_PRINT:
+      case COMMAND.PRINT:
 
-        image.palette = packet.data.paletteData || image.palette;
+        image.palette = (packet as PrintPacket).data.paletteData || image.palette;
 
-        if (packet.data.marginLower !== 0) {
+        if ((packet as PrintPacket).data.marginLower !== 0) {
           images.push(image.transformed);
 
           image = {
@@ -50,4 +50,4 @@ const transformToClassic = (packets) => {
   return images;
 };
 
-module.exports = transformToClassic;
+export default transformToClassic;

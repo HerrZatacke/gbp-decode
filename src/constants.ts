@@ -1,3 +1,5 @@
+import {Packet} from "./Types";
+
 export enum COMMAND {
   INIT = 0x1,
   PRINT = 0x2,
@@ -17,7 +19,7 @@ export enum STATE {
   AWAIT_STATUS_QUERY = 7,
 }
 
-export const EMPTY_PACKET = {
+export const EMPTY_PACKET: Packet = {
   command: null,
   buffer: [],
   data: [],
@@ -25,3 +27,9 @@ export const EMPTY_PACKET = {
   dataLength: 0,
   checksum: 0,
 };
+
+export enum DECOMP_MODE {
+  DETECT_LENGTH = 0,
+  COMPRESSED = 1,
+  UNCOMPRESSED = 2,
+}
