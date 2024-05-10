@@ -17,7 +17,7 @@ export interface Packet {
   data: number[],
   hasCompression: number,
   dataLength: number,
-  checksum: number,
+  checksum?: number,
 }
 
 export type ParsedPacket = Omit<Packet, 'buffer'>;
