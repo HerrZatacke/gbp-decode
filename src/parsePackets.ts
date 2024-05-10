@@ -1,6 +1,6 @@
 import { STATE, EMPTY_PACKET } from "./constants";
 import { Packet, ParsedPacket } from "./Types";
-const parsePackets = async (bytes: number[]): Promise<ParsedPacket[]> => {
+const parsePackets = (bytes: number[]): ParsedPacket[] => {
   let state = STATE.AWAIT_MAGIC_BYTES;
   let packet: Packet = {...EMPTY_PACKET};
   const packets: ParsedPacket[] = [];

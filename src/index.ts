@@ -14,6 +14,8 @@ import parseReducedPackets from "./parseReducedPackets";
 import inflateTransferPackages from "./inflateTransferPackages";
 import completeFrame from "./completeFrame";
 
+const outDir = path.join(process.cwd(), 'out');
+
 const runStandard = async (fileName: string, outKey: string) => {
   const filePath = path.join(process.cwd(), 'in', fileName);
 
@@ -33,19 +35,19 @@ const runStandard = async (fileName: string, outKey: string) => {
     process.exit(-1);
   }
 
-  rawPackets = await toByteArray(fileContents);
-  parsedPackets = await parsePackets(rawPackets);
-  dataPackets = await getImageDataStream(parsedPackets);
-  decompPackets = await decompressDataStream(dataPackets);
+  rawPackets = toByteArray(fileContents);
+  parsedPackets = parsePackets(rawPackets);
+  dataPackets = getImageDataStream(parsedPackets);
+  decompPackets = decompressDataStream(dataPackets);
   // fs.writeFile('debug_ts.txt', JSON.stringify(decompPackets, null, 2), {encoding: 'utf8'});
-  printInfoPackets = await decodePrintCommands(decompPackets);
-  harmonizedPackets = await harmonizePalettes(printInfoPackets);
-  classicPrintStreamImages = await transformToClassic(harmonizedPackets);
+  printInfoPackets = decodePrintCommands(decompPackets);
+  harmonizedPackets = harmonizePalettes(printInfoPackets);
+  classicPrintStreamImages = transformToClassic(harmonizedPackets);
 
   try {
     await Promise.all(classicPrintStreamImages.map(async (image: string[], index: number) => {
       image.unshift('!{"command":"INIT"}');
-      await fs.writeFile(path.join(process.cwd(), 'out', `out_${outKey}_${index}.txt`), image.join('\n'), {encoding: 'utf8'});
+      await fs.writeFile(path.join(outDir, `out_${outKey}_${index}.txt`), image.join('\n'), {encoding: 'utf8'});
     }));
   } catch (error) {
     console.error(error);
@@ -73,21 +75,21 @@ const runReduced = async (fileName: string, outKey: string) => {
     process.exit(-1);
   }
 
-  reducedPackages = await toByteArray(fileContents);
-  rawPackets = await parseReducedPackets(reducedPackages);
-  parsedPackets = await inflateTransferPackages(rawPackets); // Reduced Packets are missing the frame. This adds the sides
-  dataPackets = await getImageDataStream(parsedPackets);
-  decompPackets = await decompressDataStream(dataPackets);
+  reducedPackages = toByteArray(fileContents);
+  rawPackets = parseReducedPackets(reducedPackages);
+  parsedPackets = inflateTransferPackages(rawPackets); // Reduced Packets are missing the frame. This adds the sides
+  dataPackets = getImageDataStream(parsedPackets);
+  decompPackets = decompressDataStream(dataPackets);
   // fs.writeFile('debug_ts.txt', JSON.stringify(decompPackets, null, 2), {encoding: 'utf8'});
-  printInfoPackets = await decodePrintCommands(decompPackets);
-  harmonizedPackets = await harmonizePalettes(printInfoPackets);
-  reducedClassicPrintStreamImages = await transformToClassic(harmonizedPackets);
-  classicPrintStreamImages = await completeFrame(reducedClassicPrintStreamImages);  // Reduced Packets are missing the frame. This adds top and bottom of the frame
+  printInfoPackets = decodePrintCommands(decompPackets);
+  harmonizedPackets = harmonizePalettes(printInfoPackets);
+  reducedClassicPrintStreamImages = transformToClassic(harmonizedPackets);
+  classicPrintStreamImages = completeFrame(reducedClassicPrintStreamImages);  // Reduced Packets are missing the frame. This adds top and bottom of the frame
 
   try {
     await Promise.all(classicPrintStreamImages.map(async (image: string[], index: number) => {
       image.unshift('!{"command":"INIT"}');
-      await fs.writeFile(path.join(process.cwd(), 'out', `out_${outKey}_${index}.txt`), image.join('\n'), {encoding: 'utf8'});
+      await fs.writeFile(path.join(outDir, `out_${outKey}_${index}.txt`), image.join('\n'), {encoding: 'utf8'});
     }));
   } catch (error) {
     console.error(error);
@@ -95,11 +97,16 @@ const runReduced = async (fileName: string, outKey: string) => {
 
 }
 
-runStandard('alice.txt', 'alice');
-runStandard('all.txt', 'all');
-runStandard('comp.txt', 'comp');
-runStandard('gradient.txt', 'gradient');
-runStandard('uncomp.txt', 'uncomp');
-runStandard('white.txt', 'white');
+fs.mkdir(outDir, {
+  recursive: true,
+}).then(() => {
+  runStandard('alice.txt', 'alice');
+  runStandard('all.txt', 'all');
+  runStandard('comp.txt', 'comp');
+  runStandard('gradient.txt', 'gradient');
+  runStandard('uncomp.txt', 'uncomp');
+  runStandard('white.txt', 'white');
 
-runReduced('pico.txt', 'pico');
+  runReduced('pico.txt', 'pico');
+});
+

@@ -1,5 +1,5 @@
 
-const toByteArray = async (fileContents: string): Promise<number[]> => (
+const toByteArray = (fileContents: string): number[] => (
   fileContents
     .split('\n')
     .filter((line) => !line.startsWith('//'))
