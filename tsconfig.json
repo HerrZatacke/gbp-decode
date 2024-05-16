@@ -1,14 +1,13 @@
 {
   "compilerOptions": {
-    "target": "es2022",
+    "target": "ESNext",
     "lib": ["es6", "dom", "dom.iterable"],
-    "module": "commonjs",
+    "module": "ESNext",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,
     "removeComments": true,
-    "declaration": true,
-    "declarationDir": "./types"
+    "declaration": true
   },
   "include": [
     "./src/**/*"
