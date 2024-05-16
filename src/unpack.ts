@@ -1,6 +1,6 @@
 import {DECOMP_MODE} from "./constants";
 
-export const unpack = (data: number[]): number[] => {
+export const unpack = (data: number[] | Uint8Array): number[] => {
   const dataOut: number[] = [];
 
   let mode = DECOMP_MODE.DETECT_LENGTH;

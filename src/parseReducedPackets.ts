@@ -1,7 +1,7 @@
 import {COMMAND, STATE} from "./constants";
 import {Packet, ParsedPacket} from "./Types";
 
-export const parseReducedPackets = (bytes: number[]): ParsedPacket[] => {
+export const parseReducedPackets = (bytes: number[] | Uint8Array): ParsedPacket[] => {
   let state = STATE.AWAIT_COMMAND;
 
   let packet: Packet = {

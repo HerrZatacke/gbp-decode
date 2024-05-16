@@ -14,7 +14,7 @@ export interface PrintData {
 export interface Packet {
   command: null | COMMAND,
   buffer: number[],
-  data: number[],
+  data: number[] | Uint8Array,
   hasCompression: number,
   dataLength: number,
   checksum?: number,

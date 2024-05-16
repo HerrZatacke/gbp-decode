@@ -1,6 +1,6 @@
 import { STATE, EMPTY_PACKET } from "./constants";
 import { Packet, ParsedPacket } from "./Types";
-export const parsePackets = (bytes: number[]): ParsedPacket[] => {
+export const parsePackets = (bytes: number[] | Uint8Array): ParsedPacket[] => {
   let state = STATE.AWAIT_MAGIC_BYTES;
   let packet: Packet = {...EMPTY_PACKET};
   const packets: ParsedPacket[] = [];

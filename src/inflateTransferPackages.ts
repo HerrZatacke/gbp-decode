@@ -4,7 +4,7 @@ import {ParsedPacket} from "./Types";
 
 const twoTiles: number[] = (new Array(2 * 16)).fill(0x00);
 
-const inflate = (arr: number[]): number[] => {
+const inflate = (arr: number[] | Uint8Array): number[] => {
   const chunks = [];
   let i = 0;
   const n = arr.length;

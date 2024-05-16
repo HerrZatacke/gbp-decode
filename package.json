@@ -3,8 +3,8 @@
   "version": "1.4.0",
   "description": "A set of functions to decode gameboy printer code",
   "scripts": {
-    "build": "unbuild",
-    "start": "tsc && node dist/index.js"
+    "prepack": "unbuild",
+    "start": "unbuild & node index.js"
   },
   "type": "module",
   "exports": {
@@ -39,7 +39,8 @@
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.12.11",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "unbuild": "^2.0.0"
   }
 }
 
