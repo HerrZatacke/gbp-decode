@@ -1,6 +1,6 @@
 {
   "name": "gbp-decode",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "A set of functions to decode gameboy printer code",
   "scripts": {
     "prepack": "unbuild",
