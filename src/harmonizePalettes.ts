@@ -1,8 +1,8 @@
 import {COMMAND} from "./constants";
-import harmonizePalette from "./harmonizePalette";
+import {harmonizePalette} from "./harmonizePalette";
 import {ParsedPacket, PrintPacket} from "./Types";
 
-const harmonizePalettes = (packets: (PrintPacket | ParsedPacket)[]): (PrintPacket | ParsedPacket)[] => {
+export const harmonizePalettes = (packets: (PrintPacket | ParsedPacket)[]): (PrintPacket | ParsedPacket)[] => {
   let unharmonizedPackets: ParsedPacket[] = [];
 
   return packets
@@ -45,5 +45,3 @@ const harmonizePalettes = (packets: (PrintPacket | ParsedPacket)[]): (PrintPacke
       return packet;
     })
 };
-
-export default harmonizePalettes;

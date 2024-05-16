@@ -1,31 +1,16 @@
-import parsePackets from "./parsePackets";
-import parseReducedPackets from "./parseReducedPackets";
-import inflateTransferPackages from "./inflateTransferPackages";
-import getImageDataStream from "./getImageDataStream";
-import decompressDataStream from "./decompressDataStream";
-import decodePrintCommands from "./decodePrintCommands";
-import harmonizePalettes from "./harmonizePalettes";
-import transformToClassic from "./transformToClassic";
-import unpack from "./unpack";
-import parsePaletteByte from "./parsePaletteByte";
-import harmonizePalette from "./harmonizePalette";
-import completeFrame from "./completeFrame";
-import logPackets from "./logPackets";
-
-export default {
-  parsePackets,
-  parseReducedPackets,
-  inflateTransferPackages,
-  getImageDataStream,
-  decompressDataStream,
-  decodePrintCommands,
-  harmonizePalettes,
-  transformToClassic,
-  unpack,
-  parsePaletteByte,
-  harmonizePalette,
-  completeFrame,
-  logPackets,
-};
+export { parsePackets } from "./parsePackets";
+export { parseReducedPackets } from "./parseReducedPackets";
+export { inflateTransferPackages } from "./inflateTransferPackages";
+export { getImageDataStream } from "./getImageDataStream";
+export { decompressDataStream } from "./decompressDataStream";
+export { decodePrintCommands } from "./decodePrintCommands";
+export { harmonizePalettes } from "./harmonizePalettes";
+export { transformToClassic } from "./transformToClassic";
+export { unpack } from "./unpack";
+export { parsePaletteByte } from "./parsePaletteByte";
+export { harmonizePalette } from "./harmonizePalette";
+export { completeFrame } from "./completeFrame";
+export { logPackets } from "./logPackets";
+export { COMMAND, STATE, EMPTY_PACKET, DECOMP_MODE } from "./constants";
 
 export * from './Types';

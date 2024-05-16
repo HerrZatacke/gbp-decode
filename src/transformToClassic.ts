@@ -1,7 +1,7 @@
 import {ParsedPacket, PrintPacket, TransformedImage} from "./Types";
 import {COMMAND} from "./constants";
 
-const transformToClassic = (packets: (PrintPacket | ParsedPacket)[]): string[][] => {
+export const transformToClassic = (packets: (PrintPacket | ParsedPacket)[]): string[][] => {
 
   let image: TransformedImage = {
     transformed: [],
@@ -49,5 +49,3 @@ const transformToClassic = (packets: (PrintPacket | ParsedPacket)[]): string[][]
 
   return images;
 };
-
-export default transformToClassic;

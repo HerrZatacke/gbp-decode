@@ -2,17 +2,17 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import {ParsedPacket, PrintPacket} from "./Types";
 // Common functions
-import toByteArray from "./toByteArray";
-import parsePackets from "./parsePackets";
-import getImageDataStream from "./getImageDataStream";
-import decompressDataStream from "./decompressDataStream";
-import decodePrintCommands from "./decodePrintCommands";
-import harmonizePalettes from "./harmonizePalettes";
-import transformToClassic from "./transformToClassic";
+import {toByteArray} from "./toByteArray";
+import {parsePackets} from "./parsePackets";
+import {getImageDataStream} from "./getImageDataStream";
+import {decompressDataStream} from "./decompressDataStream";
+import {decodePrintCommands} from "./decodePrintCommands";
+import {harmonizePalettes} from "./harmonizePalettes";
+import {transformToClassic} from "./transformToClassic";
 // PicoPrinter extras
-import parseReducedPackets from "./parseReducedPackets";
-import inflateTransferPackages from "./inflateTransferPackages";
-import completeFrame from "./completeFrame";
+import {parseReducedPackets} from "./parseReducedPackets";
+import {inflateTransferPackages} from "./inflateTransferPackages";
+import {completeFrame} from "./completeFrame";
 
 const outDir = path.join(process.cwd(), 'out');
 

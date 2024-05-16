@@ -1,6 +1,6 @@
 import {HarmonisedPalette, PaletteData} from "./Types";
 
-const harmonizePalette = (charA: number, charB: number, paletteDefinition: PaletteData = [3, 2, 1, 0]): HarmonisedPalette => {
+export const harmonizePalette = (charA: number, charB: number, paletteDefinition: PaletteData = [3, 2, 1, 0]): HarmonisedPalette => {
 
   const bits =  [...Array(8)].map((_, index) => ({
     a: (charB >> 7 - index) % 2,
@@ -31,5 +31,3 @@ const harmonizePalette = (charA: number, charB: number, paletteDefinition: Palet
     res.a & 0xff,
   ];
 }
-
-export default harmonizePalette;

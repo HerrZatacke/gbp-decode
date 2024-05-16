@@ -1,9 +1,8 @@
 import {COMMAND} from "./constants";
-import parsePaletteByte from "./parsePaletteByte";
+import {parsePaletteByte} from "./parsePaletteByte";
 import {ParsedPacket, PrintData, PrintPacket} from "./Types";
 
-
-const decodePrintCommands = (packets: ParsedPacket[]): (PrintPacket | ParsedPacket)[] => {
+export const decodePrintCommands = (packets: ParsedPacket[]): (PrintPacket | ParsedPacket)[] => {
   return packets
     .map((packet) => {
       if (packet.command === COMMAND.PRINT) {
@@ -24,5 +23,3 @@ const decodePrintCommands = (packets: ParsedPacket[]): (PrintPacket | ParsedPack
       return packet;
     })
 };
-
-export default decodePrintCommands;

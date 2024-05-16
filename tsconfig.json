@@ -3,6 +3,7 @@
     "target": "ESNext",
     "lib": ["es6", "dom", "dom.iterable"],
     "module": "ESNext",
+    "moduleResolution": "Node",
     "outDir": "./dist",
     "strict": true,
     "esModuleInterop": true,

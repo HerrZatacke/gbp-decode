@@ -16,7 +16,7 @@ const inflate = (arr: number[]): number[] => {
   return chunks;
 };
 
-const inflateTransferPackages = (packets: ParsedPacket[]): ParsedPacket[] => (
+export const inflateTransferPackages = (packets: ParsedPacket[]): ParsedPacket[] => (
   packets.map((packet): ParsedPacket => {
     if (packet.command !== COMMAND.TRANSFER) {
       return packet;
@@ -29,6 +29,3 @@ const inflateTransferPackages = (packets: ParsedPacket[]): ParsedPacket[] => (
     };
   })
 );
-
-
-export default inflateTransferPackages;

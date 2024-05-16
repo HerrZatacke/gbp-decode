@@ -1,5 +1,5 @@
 
-const toByteArray = (fileContents: string): number[] => (
+export const toByteArray = (fileContents: string): number[] => (
   fileContents
     .split('\n')
     .filter((line) => !line.startsWith('//'))
@@ -11,5 +11,3 @@ const toByteArray = (fileContents: string): number[] => (
     )
     .flat()
 );
-
-export default toByteArray;

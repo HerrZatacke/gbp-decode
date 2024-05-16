@@ -1,18 +1,17 @@
 {
   "name": "gbp-decode",
-  "version": "1.3.8",
+  "version": "1.4.0",
   "description": "A set of functions to decode gameboy printer code",
   "scripts": {
     "build": "unbuild",
-    "prepublish": "npm run bui",
     "start": "tsc && node dist/index.js"
   },
   "type": "module",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "types": "./dist/main.d.ts",
+      "import": "./dist/main.mjs",
+      "require": "./dist/main.cjs"
     }
   },
   "main": "./dist/main.cjs",
@@ -23,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/HerrZatacke/gbp-decode.git"
+    "url": "git+https://github.com/HerrZatacke/gbp-decode.git"
   },
   "keywords": [
     "gameboy",
@@ -39,8 +38,11 @@
   },
   "license": "MIT",
   "devDependencies": {
-    "unbuild": "^2.0.0",
     "@types/node": "^20.12.11",
     "typescript": "^5.4.5"
   }
 }
+
+
+
+

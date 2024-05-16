@@ -5,7 +5,7 @@ The next two bits represent those of index 1, the next, index 2, and the lowest 
 */
 import {PaletteData} from "./Types";
 
-const parsePaletteByte = (paletteRaw: number): PaletteData => {
+export const parsePaletteByte = (paletteRaw: number): PaletteData => {
   return [
     (paletteRaw >> 6) & 0x3,
     (paletteRaw >> 4) & 0x3,
@@ -13,5 +13,3 @@ const parsePaletteByte = (paletteRaw: number): PaletteData => {
     (paletteRaw >> 0) & 0x3,
   ];
 };
-
-export default parsePaletteByte;

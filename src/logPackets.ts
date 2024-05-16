@@ -24,7 +24,7 @@ interface LogPacket {
   data: string,
 }
 
-const logPackets = (packets: ParsedPacket[]) => {
+export const logPackets = (packets: ParsedPacket[]) => {
   console.log(
     packets.map(({ command, data, hasCompression, dataLength }: ParsedPacket | PrintPacket): LogPacket => ({
       command: commandName(command),
@@ -36,5 +36,3 @@ const logPackets = (packets: ParsedPacket[]) => {
 
   return packets;
 }
-
-export default logPackets;

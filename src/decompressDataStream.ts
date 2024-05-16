@@ -1,10 +1,8 @@
 import {ParsedPacket} from "./Types";
 import {COMMAND} from "./constants";
+import {unpack} from "./unpack";
 
-import unpack from "./unpack";
-
-
-const decompressDataStream = (packets: ParsedPacket[]): ParsedPacket[] => {
+export const decompressDataStream = (packets: ParsedPacket[]): ParsedPacket[] => {
   return packets
     .map((packet: ParsedPacket): ParsedPacket => {
       if (packet.command === COMMAND.DATA) {
@@ -18,5 +16,3 @@ const decompressDataStream = (packets: ParsedPacket[]): ParsedPacket[] => {
       return packet;
     });
 }
-
-export default decompressDataStream;
